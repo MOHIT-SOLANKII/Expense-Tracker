@@ -271,7 +271,7 @@ const Dashboard = () => {
 
         {/* Recent Transactions */}
         <div className="bg-white p-4 md:p-6 rounded-xl shadow-sm h-fit">
-          <h3 className="text-lg font-semibold mb-4">Recent Transactions</h3>
+          <h3 className="text-lg font-semibold mb-4">Recent Expenses</h3>
           <div className="space-y-4">
             {recentTransactions.map((transaction) => (
               <div key={transaction._id} 
