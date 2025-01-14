@@ -65,7 +65,7 @@ const Dashboard = () => {
     <div className="space-y-6">
       {/* Top Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+        <div className="bg-white p-6 rounded-xl shadow-sm shadow-md transition-shadow">
           <div className="text-gray-500 mb-2">Current Balance</div>
           <div className="text-2xl font-bold text-purple-600">${currentBalance}</div>
           <div className={`text-sm mt-2 flex items-center ${currentBalance >= 0 ? 'text-green-500' : 'text-red-500'}`}>
@@ -74,7 +74,7 @@ const Dashboard = () => {
           </div>
         </div>
         
-        <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+        <div className="bg-white p-6 rounded-xl shadow-sm shadow-md transition-shadow">
           <div className="text-gray-500 mb-2">Total Income</div>
           <div className="text-2xl font-bold text-purple-600">
             ${calculateTotalIncome(currentMonth, currentYear)}
@@ -84,7 +84,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+        <div className="bg-white p-6 rounded-xl shadow-sm shadow-md transition-shadow">
           <div className="text-gray-500 mb-2">Total Expenses</div>
           <div className="text-2xl font-bold text-purple-600">
             ${calculateTotalExpenses(currentMonth, currentYear)}
