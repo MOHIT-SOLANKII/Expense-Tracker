@@ -3,10 +3,26 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss-clean');
 
 dotenv.config();
 
 const app = express();
+
+// Security Middleware
+app.use(helmet());
+app.use(mongoSanitize());
+app.use(xss());
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+});
+app.use('/api', limiter);
 
 // Middleware
 app.use(cors({
