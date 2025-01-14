@@ -20,7 +20,7 @@ export const ExpenseProvider = ({ children }) => {
 
   const fetchIncomes = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/income/${user.id}`);
+      const response = await fetch(`${import.meta.env.BACKEND_URL}/api/income/${user.id}`);
       const data = await response.json();
       setIncomes(data);
     } catch (error) {
@@ -30,7 +30,7 @@ export const ExpenseProvider = ({ children }) => {
 
   const fetchExpenses = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/expenses/${user.id}`);
+      const response = await fetch(`${import.meta.env.BACKEND_URL}/api/expenses/${user.id}`);
       const data = await response.json();
       setExpenses(data);
     } catch (error) {
@@ -42,7 +42,7 @@ export const ExpenseProvider = ({ children }) => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/categories/${user.id}`);
+      const response = await fetch(`${import.meta.env.BACKEND_URL}/api/categories/${user.id}`);
       const data = await response.json();
       setCategories(data);
     } catch (error) {
@@ -52,7 +52,7 @@ export const ExpenseProvider = ({ children }) => {
 
   const addIncome = async (amount, month, year) => {
     try {
-      const response = await fetch('http://localhost:5000/api/income', {
+      const response = await fetch(`${import.meta.env.BACKEND_URL}/api/income`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ export const ExpenseProvider = ({ children }) => {
 
   const lockIncome = async (incomeId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/income/${incomeId}/lock`, {
+      const response = await fetch(`${import.meta.env.BACKEND_URL}/api/income/${incomeId}/lock`, {
         method: 'PATCH',
       });
       const data = await response.json();
@@ -91,7 +91,7 @@ export const ExpenseProvider = ({ children }) => {
 
   const addExpense = async (expenseData) => {
     try {
-      const response = await fetch('http://localhost:5000/api/expenses', {
+      const response = await fetch(`${import.meta.env.BACKEND_URL}/api/expenses`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -112,7 +112,7 @@ export const ExpenseProvider = ({ children }) => {
 
   const editExpense = async (expenseId, expenseData) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/expenses/${expenseId}`, {
+      const response = await fetch(`${import.meta.env.BACKEND_URL}/api/expenses/${expenseId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -132,7 +132,7 @@ export const ExpenseProvider = ({ children }) => {
 
   const deleteExpense = async (expenseId) => {
     try {
-      await fetch(`http://localhost:5000/api/expenses/${expenseId}`, {
+      await fetch(`${import.meta.env.BACKEND_URL}/api/expenses/${expenseId}`, {
         method: 'DELETE',
       });
       setExpenses(expenses.filter(expense => expense._id !== expenseId));
@@ -144,7 +144,7 @@ export const ExpenseProvider = ({ children }) => {
 
   const addCategory = async (name) => {
     try {
-      const response = await fetch('http://localhost:5000/api/categories', {
+      const response = await fetch(`${import.meta.env.BACKEND_URL}/api/categories`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -165,7 +165,7 @@ export const ExpenseProvider = ({ children }) => {
 
   const deleteCategory = async (categoryId) => {
     try {
-      await fetch(`http://localhost:5000/api/categories/${categoryId}`, {
+      await fetch(`${import.meta.env.BACKEND_URL}/api/categories/${categoryId}`, {
         method: 'DELETE',
       });
       setCategories(categories.filter(category => category._id !== categoryId));
