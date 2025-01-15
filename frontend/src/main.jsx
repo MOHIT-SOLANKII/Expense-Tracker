@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { ClerkProvider } from '@clerk/clerk-react'
+import { Toaster } from 'react-hot-toast'
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
@@ -15,6 +16,25 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
       <App />
+      <Toaster 
+        position="top-center"
+        toastOptions={{
+          success: {
+            duration: 3000,
+            style: {
+              background: '#10B981',
+              color: 'white',
+            },
+          },
+          error: {
+            duration: 3000,
+            style: {
+              background: '#EF4444',
+              color: 'white',
+            },
+          },
+        }}
+      />
     </ClerkProvider>
   </StrictMode>,
 )

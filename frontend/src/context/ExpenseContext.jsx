@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useUser } from '@clerk/clerk-react';
+import toast from 'react-hot-toast';
 
 const ExpenseContext = createContext();
 
@@ -24,7 +25,7 @@ export const ExpenseProvider = ({ children }) => {
       const data = await response.json();
       setIncomes(data);
     } catch (error) {
-      console.error('Error fetching incomes:', error);
+      toast.error('Failed to fetch income data');
     }
   };
 
@@ -34,7 +35,7 @@ export const ExpenseProvider = ({ children }) => {
       const data = await response.json();
       setExpenses(data);
     } catch (error) {
-      console.error('Error fetching expenses:', error);
+      toast.error('Failed to fetch expense data');
     } finally {
       setLoading(false);
     }
@@ -46,7 +47,7 @@ export const ExpenseProvider = ({ children }) => {
       const data = await response.json();
       setCategories(data);
     } catch (error) {
-      console.error('Error fetching categories:', error);
+      toast.error('Failed to fetch categories');
     }
   };
 
@@ -65,10 +66,14 @@ export const ExpenseProvider = ({ children }) => {
         }),
       });
       const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to add income');
+      }
       setIncomes([...incomes, data]);
+      toast.success('Income added successfully');
       return data;
     } catch (error) {
-      console.error('Error adding income:', error);
+      toast.error(error.message);
       throw error;
     }
   };
@@ -79,12 +84,16 @@ export const ExpenseProvider = ({ children }) => {
         method: 'PATCH',
       });
       const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to lock income');
+      }
       setIncomes(incomes.map(income => 
         income._id === incomeId ? { ...income, isLocked: true } : income
       ));
+      toast.success('Income locked successfully');
       return data;
     } catch (error) {
-      console.error('Error locking income:', error);
+      toast.error(error.message);
       throw error;
     }
   };
@@ -102,10 +111,14 @@ export const ExpenseProvider = ({ children }) => {
         }),
       });
       const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to add expense');
+      }
       setExpenses([...expenses, data]);
+      toast.success('Expense added successfully');
       return data;
     } catch (error) {
-      console.error('Error adding expense:', error);
+      toast.error(error.message);
       throw error;
     }
   };
@@ -120,24 +133,33 @@ export const ExpenseProvider = ({ children }) => {
         body: JSON.stringify(expenseData),
       });
       const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to update expense');
+      }
       setExpenses(expenses.map(expense => 
         expense._id === expenseId ? data : expense
       ));
+      toast.success('Expense updated successfully');
       return data;
     } catch (error) {
-      console.error('Error editing expense:', error);
+      toast.error(error.message);
       throw error;
     }
   };
 
   const deleteExpense = async (expenseId) => {
     try {
-      await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/expenses/${expenseId}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/expenses/${expenseId}`, {
         method: 'DELETE',
       });
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to delete expense');
+      }
       setExpenses(expenses.filter(expense => expense._id !== expenseId));
+      toast.success('Expense deleted successfully');
     } catch (error) {
-      console.error('Error deleting expense:', error);
+      toast.error(error.message);
       throw error;
     }
   };
@@ -155,22 +177,31 @@ export const ExpenseProvider = ({ children }) => {
         }),
       });
       const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to add category');
+      }
       setCategories([...categories, data]);
+      toast.success('Category added successfully');
       return data;
     } catch (error) {
-      console.error('Error adding category:', error);
+      toast.error(error.message);
       throw error;
     }
   };
 
   const deleteCategory = async (categoryId) => {
     try {
-      await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/categories/${categoryId}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/categories/${categoryId}`, {
         method: 'DELETE',
       });
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to delete category');
+      }
       setCategories(categories.filter(category => category._id !== categoryId));
+      toast.success('Category deleted successfully');
     } catch (error) {
-      console.error('Error deleting category:', error);
+      toast.error(error.message);
       throw error;
     }
   };
@@ -210,6 +241,7 @@ export const ExpenseProvider = ({ children }) => {
     </ExpenseContext.Provider>
   );
 };
+
 
 export const useExpense = () => {
   const context = useContext(ExpenseContext);
