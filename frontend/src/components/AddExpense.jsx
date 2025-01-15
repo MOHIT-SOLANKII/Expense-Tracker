@@ -11,7 +11,6 @@ const AddExpense = () => {
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [showCategoryModal, setShowCategoryModal] = useState(false);
 
-  // Default categories if no custom categories exist
   const defaultCategories = [
     'Food',
   ];
@@ -38,7 +37,6 @@ const AddExpense = () => {
       setCategory(allCategories[0]);
       setDate(new Date().toISOString().split('T')[0]);
     } catch (error) {
-      // Error is already handled by the context with toast
       console.error(error);
     }
   };

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { LineChart, ChevronRight, Github, CircleDollarSign } from 'lucide-react';
 import { SignInButton } from "@clerk/clerk-react";
 

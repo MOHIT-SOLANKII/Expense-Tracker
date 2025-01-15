@@ -91,9 +91,7 @@ function App() {
           >
             <div className="p-6">
               <div className="flex items-center gap-2 mb-12">
-                {/* <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                  <LayoutDashboard className="w-5 h-5 text-purple-600" />
-                </div> */}
+                
                 <div className="text-2xl font-bold pl-10">ExTrack</div>
               </div>
               <nav className="space-y-2">

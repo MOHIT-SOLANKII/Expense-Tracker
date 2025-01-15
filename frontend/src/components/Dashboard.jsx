@@ -52,8 +52,7 @@ const Dashboard = () => {
           amount
         }))
       );
-
-      // Get recent transactions for the selected month/year
+      
       setRecentTransactions(
         expenses
           .filter(expense => expense.month === selectedMonth && expense.year === selectedYear)

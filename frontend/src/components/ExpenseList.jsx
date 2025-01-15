@@ -20,12 +20,10 @@ const ExpenseList = () => {
     (_, i) => new Date().getFullYear() - 2 + i
   );
 
-  // Default categories if no custom categories exist
   const defaultCategories = [
     'Food',
   ];
 
-  // Combine default and custom categories
   const allCategories = [
     ...defaultCategories,
     ...categories.map(cat => cat.name)

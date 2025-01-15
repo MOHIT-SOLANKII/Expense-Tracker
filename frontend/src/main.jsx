@@ -5,7 +5,6 @@ import App from './App.jsx'
 import { ClerkProvider } from '@clerk/clerk-react'
 import { Toaster } from 'react-hot-toast'
 
-// Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
 if (!PUBLISHABLE_KEY) {

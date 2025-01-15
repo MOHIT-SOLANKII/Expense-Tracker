@@ -12,19 +12,17 @@ dotenv.config();
 
 const app = express();
 
-// Security Middleware
 app.use(helmet());
 app.use(mongoSanitize());
 app.use(xss());
 
-// Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000, 
+  max: 100 
 });
 app.use('/api', limiter);
 
-// Middleware
+
 app.use(cors({
   origin: process.env.FRONTEND_URL,
   credentials: true
@@ -32,18 +30,18 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-// MongoDB Connection
+
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
-// Models
+
 const User = require('./models/User');
 const Income = require('./models/Income');
 const Expense = require('./models/Expense');
 const Category = require('./models/Category');
 
-// User Routes
+
 app.post('/api/users', async (req, res) => {
   try {
     const { clerkId, email } = req.body;
@@ -60,7 +58,7 @@ app.post('/api/users', async (req, res) => {
   }
 });
 
-// Income Routes
+
 app.post('/api/income', async (req, res) => {
   try {
     const { userId, amount, month, year } = req.body;
@@ -99,7 +97,7 @@ app.patch('/api/income/:id/lock', async (req, res) => {
   }
 });
 
-// Expense Routes
+
 app.post('/api/expenses', async (req, res) => {
   try {
     const { userId, title, amount, category, date } = req.body;
@@ -164,7 +162,7 @@ app.delete('/api/expenses/:id', async (req, res) => {
   }
 });
 
-// Category Routes
+
 app.get('/api/categories/:userId', async (req, res) => {
   try {
     const categories = await Category.find({ userId: req.params.userId });
